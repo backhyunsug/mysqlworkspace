@@ -339,19 +339,90 @@ select * from emp3;
 use w3schools;
 -- 문제1. customers 테이블의 구조를 복사한 후 customers2로 
 -- 만들고 고객 아이디중에 3,23,21,45,67,89,54 복사하기 
+	
+    create table customers2 as 
+    select * from customers where 1=0;
+    
+    desc customers2;
+    insert into customers2(CustomerID,CustomerName,ContactName,
+	Address,City,PostalCode,Country)
+    select * from customers
+    where customerid in (3,23,21,45,67,89,54); 
+
 
 -- 문제2. 고객아이디중에 4,5,11,33,42,43,56,57,58번을 이동하기 
 --        customers -> customers2 로 옮기기 
-
--- 문제3. 제품가격이 100$를 넘는 제품을 구매한 고객 리스트 
+    insert into customers2 (CustomerID,CustomerName,ContactName,
+	Address,City,PostalCode,Country)
+    select * from customers
+    where customerid in (4,5,11,33,42,43,56,57,58); 
+    
+    select * from customers;
+    
+    -- foreign key 를 제거하고 삭제해야 한다. 
+    -- 삭제 현재 안된다. foreign key제약조건의 순기능 
+    delete from orders
+    where customerid in (4,5,11,33,42,43,56,57,58); 
+    
+    delete from customers
+    where customerid in (4,5,11,33,42,43,56,57,58); 
+    
+    
+-- 문제3. 제품가격이 100$를 넘는 제품을 구매한 고객 리스트
+select A.orderid, D.customerName, price 
+from orders A 
+inner join orderdetails B on A.orderid=B.orderid 
+inner join products C on B.productid=C.productid
+inner join customers D on A.customerid =D.customerid
+where price>100;
+ 
 -- 문제4. orderdetails테이블의 quantity가 제품을 구매한 수량이고 product테이블의 있는 
 --       price 가 단가이다. 구매한 고객이름과, 제품명, 제품전체가액을 구하시오 
 --      예) 홍길동    가구     quiantity 와 price 가 곱해져야 한다. 
 
--- 문제5. 핀란드에 있는 공급자 리스트 가져오기 
+select D.customerName, C.productname, C.price*B.quantity  
+from orders A 
+inner join orderdetails B on A.orderid=B.orderid 
+inner join products C on B.productid=C.productid
+inner join customers D on A.customerid =D.customerid;
+
+-- 문제5. 핀란드에 있는 공급자 리스트 가져오기 (Finland)
+-- distinct 뒤에 나오는 필드값을 중복을 배제 하는 명령어
+-- distinct 는 country와 suppliername를 조합해서 유일한 데이터 
+select distinct country, suppliername from suppliers;
+
+select suppliername from suppliers where country='Finland';
+select suppliername from suppliers where country like 'Finland%';
+-- 외부에서 
+ 
 -- 문제6. 카테고리 제품이 seafood 인 제품의 구매자 리스트를 조회하시오 
 
+select customername 
+from orders A 
+inner join orderdetails B on A.orderid=B.orderid 
+inner join products C on B.productid=C.productid
+inner join customers D on A.customerid =D.customerid
+inner join categories E on C.categoryid=E.categoryid
+where lower(E.categoryname)='seafood';
 
+-- 오늘의 과제 
+select distinct country from customers;
+/*
+1. Customers 테이블에서 나라가 Germany인 나라의 정보 전체 
+2. Customers 테이블에서 나라가 Austria, USA, Poland, Denmark
+   에 사는 고객리스트 
+3. 각자 나라별로 고객이 몇명씩 있는지 확인 
+4. 나라별로 고객이 5명 이상인 나라 목록만 조회 
+5. 나라이름이 B로 시작하는 나라들의 고객 전체 합 
+6. 나라는 UK 도시명은 London 에 있는 고객들 이름 목록 
+7. 주문날짜가 '1996-07-01'~'1996-09-30' 일까지의 주문아이디와 
+ 고객이름 
+8.  위의 7번 문제를 고객이름 오름차순으로 정렬하여 출력하기
+9.  배달자가 Federal Shipping 인 경우의 상품명 가격 수량 만  
+ 
+*/
+select orderdate from orders; 
+select * from customers;
 
 
 
