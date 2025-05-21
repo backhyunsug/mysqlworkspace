@@ -1,10 +1,11 @@
---●DDL
---CREATE, ALTER, RENAME, DROP, TRUNCATE
+-- DDL
+-- CREATE, ALTER, RENAME, DROP, TRUNCATE
 
 drop database if exists mydb2;
---새로 만들어라 
+-- 새로 만들어라 
 CREATE DATABASE IF NOT EXISTS mydb2;
 use mydb2;
+set names utf8mb4;
 
 drop table  if exists player;
 drop table  if exists team; 
@@ -101,7 +102,7 @@ INSERT INTO team VALUES ('K14','제주','제주유나이티드FC','JEJU UNITED F
 '제주 서귀포시 강정동 3355-5','064','3631-2460','3631-2468','http://www.jeju-utd.com',NULL);
 INSERT INTO team VALUES ('K15','대구','대구FC','DAEGU FC','2002','A05','777','888',
 '대구광역시 수성구 대흥동 504 대구스타디움 내','053','5566-3967','5566-3970','http://www.daegufc.co.kr',NULL);
---TEAM과 PLAYER는 제약조건이 걸려있으므로 TEAM 테이블에 데이터를 먼저 입력해줘야 한다.
+-- TEAM과 PLAYER는 제약조건이 걸려있으므로 TEAM 테이블에 데이터를 먼저 입력해줘야 한다.
 
 
 INSERT INTO player VALUES ('2009175','우르모브','K06',NULL,NULL,'2009','DF','4','유고',STR_TO_DATE('30-AUG-1987','%d-%b-%Y'),'1','180','70');
@@ -202,7 +203,7 @@ INSERT INTO player VALUES ('2007193','류병훈','K06',NULL,NULL,'2005','DF','17
 INSERT INTO player VALUES ('2011055','최준홍','K06',NULL,'말머리','2011','DF','2',NULL,STR_TO_DATE('13-APR-1988','%d-%b-%Y'),'1','178','70');
 INSERT INTO player VALUES ('2011046','서용혁','K06',NULL,'터프가이','2011','DF','34',NULL,STR_TO_DATE('02-JUL-1988','%d-%b-%Y'),'1','183','79');
 INSERT INTO player VALUES ('2010058','심재원','K06',NULL,'도날드 덕','2010','DF','5',NULL,STR_TO_DATE('11-MAR-1987','%d-%b-%Y'),'1','184','77');
-INSERT INTO player VALUES ('2007123','김임생','K04',NULL',NULL,NULL,'DF','20',NULL,STR_TO_DATE('17-NOV-1981','%d-%b-%Y'),'1','183','80');
+INSERT INTO player VALUES ('2007123','김임생','K04',NULL,NULL,NULL,'DF','20',NULL,STR_TO_DATE('17-NOV-1981','%d-%b-%Y'),'1','183','80');
 INSERT INTO player VALUES ('2007022','장형석','K04',NULL,NULL,NULL,'DF','36',NULL,STR_TO_DATE('07-JUL-1982','%d-%b-%Y'),'1','181','72');
 INSERT INTO player VALUES ('2012058','박진성','K04',NULL,NULL,NULL,'DF','35',NULL,STR_TO_DATE('10-AUG-1993','%d-%b-%Y'),'1','184','76');
 INSERT INTO player VALUES ('2009125','이거룩','K04',NULL,NULL,NULL,'DF','4',NULL,STR_TO_DATE('26-JUN-1986','%d-%b-%Y'),'1','183','77');
