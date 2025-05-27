@@ -50,6 +50,37 @@ from tb_score;
 -- delete from 테이블명  where id=1 
 -- 검색
 
+DELIMITER //
+
+CREATE PROCEDURE insert_scores()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+
+    WHILE i <= 30 DO
+        INSERT INTO tb_score (sname, kor, eng, mat, regdate)
+        VALUES (
+            CONCAT('A', i),         -- 이름: A1, A2, ..., A10
+            80 + i,                 -- 국어 점수
+            70 + i,                 -- 영어 점수
+            60 + i,                 -- 수학 점수
+            NOW()                   -- 등록일
+        );
+        SET i = i + 1;
+    END WHILE;
+END //
+
+
+call insert_scores();
+
+select count(*) from tb_score;
+
+
+
+
+
+
+
+
 
 
 
