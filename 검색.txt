@@ -19,5 +19,45 @@ AA(1~1000) --   A 1~100
 찾는 방식  O(logN)
 1.자동구성 , primary key필드는 무조건 index가 만들어진다. 
   primary key를 이용한 검색을사람들이 많이 한다. 
+
 2.사용자구성
   -- where 조건절에서 자주 사용되는 필드 
+  -- order by 절 
+  -- join절 
+  색인이 너무 많이 만들어지면 시스템 성능을 떨어뜨린다. 
+  where gender='M' 이경우에 인덱스를 만들면 인덱스 만들필요없음 
+  데이터 전체가 10000건 이내- 오라클같은경우는 100만건이내는 냅둔다
+  색인은 병렬처리 안됨 
+  색인에서 먼저 찾고 원데이터에서 찾고 반복 
+  데이터 분포도가 한쪽에 50넘어가는 값이 있을경우 색인이 의미가 없음 
+  주소 (서울시, 경기도 로 검색 ) 주로 2~3프로의 값의 범위를 가질때
+  심지어 색인을 잘못 만들면 옵티마이저(쿼리최적화)가 싹 무시하고 간다 
+
+
+뷰 : 디비구조가 엄청 복잡하고 여러개의 테이블로부터 데이터를 조인해야 할경우 
+쿼리 자체를 저장해놓고 테이블처럼 사용이 가능하다.
+조회용, 뷰를 통해서 원본테이블에 데이터를 업데이트할수는 있지만 거의 쓰지 않는다 
+create view 뷰이름 as 조회쿼리;
+
+use sakila;
+-- 없으면 만들고 있으면 수정해라 
+-- mysql 5이상일 때 지원함 
+create or replace view v_customer as 
+select concat(a.last_name, " ",a.first_name) customer_name
+, postal_code, district, phone, location, address
+from customer a 
+join address b on a.address_id=b.address_id;
+
+-- 가상의 테이블 
+select * from v_customer
+where customer_name like '%smith%';
+
+
+foreign key를 만들려면 참조되는테이블의 필드가 primary key거나unique 조건을 
+만족해야 한다. 
+
+unique key 제약조건은 중복불가 , null값 허용 
+후보키-primary key가능성이 있는 필드 
+특정필드가 primary key를 지정은 못하지만 중복되면 안될때 unique 
+제약조건으로 대신한다. 
+
