@@ -61,3 +61,16 @@ unique key 제약조건은 중복불가 , null값 허용
 특정필드가 primary key를 지정은 못하지만 중복되면 안될때 unique 
 제약조건으로 대신한다. 
 
+윈도우함수 (분석함수)
+분석용함수이다, 그룹함수 대체 함수, 그룹함수를 좀 쉽게 사용하고 
+속도도 빠르다 
+형식
+윈도우 함수(컬럼) over([partition  by컬럼]
+                     [order by 컬럼] 
+                     [rows between ...]) 
+
+row_number()  중복없이 순번을 부여하는 함수 
+sum() 합계함수   그룹함수인 sum 과 윈도우함수의 sum은 over 유무 
+윈도우 의미 - rows between 시작위치 and 마지막위치 
+
+
