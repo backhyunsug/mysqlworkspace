@@ -24,6 +24,31 @@ insert into tb_member(user_id, password, user_name,
 email, phone, regdate) values('test1', '1234', '홍길동', 
 'hong@daum.net', '010-0000-0001', now());
 
-select count(*)  from tb_member where user_id='test1';
+select count(*) cnt from tb_member where user_id='test1';
+
+-- use mydb;
+-- select ename, case deptno when 10 then  '부서1' 
+--                           when 20 then  '부서2' 
+--                           when 30 then  '부서3' 
+--                           when 40 then  '부서4'
+--                           else '부서4'
+-- 			   end as aaa
+-- from emp;
+
+create table tb_score(
+	id bigint primary key auto_increment,
+    sname varchar(20),
+    kor int, 
+    eng int,
+    mat int,
+    regdate datetime
+);
+
+select * from tb_score;
+
+
+
+
+
 
 
